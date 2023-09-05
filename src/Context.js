@@ -9,7 +9,7 @@ const AppProvider=({children})=>{
 const[isLoading,setIsLoading]= useState(true);
 const[movie,Setmovie]=useState([]);    
 const[isError, SetIsError]= useState({show:'false', msg:''});
-const[query,setQuery]=useState('Titanic');
+const[query,setQuery]=useState();
 
 const getMovies=async(url)=>{
     try{
@@ -32,7 +32,8 @@ Setmovie(data.Search);
 
 useEffect(()=>{
     let timerOut= setTimeout(()=>{
-        getMovies(`${API_URL}&s=${query}`);
+        const defaultvalue= query??'Titanic';
+        getMovies(`${API_URL}&s=${query??defaultvalue}`);
     },1000);
     return()=> clearTimeout(timerOut);
 },[query]);
